@@ -48,7 +48,7 @@ X = np.array(X)
 #Standardization of the matrix
 X_std = (X - np.mean(X, axis=0)/np.std(X, axis=0))
 
-#Compute the PCA I need
+#Compute the PCA I needd
 pca = PCA()
 X_t = pca.fit(X_std)
 pca60 = X_t.components_[0:60, :]
@@ -63,10 +63,10 @@ trasformed60 = my_trasform(X_std, X_t, pca60)
 trasformed602 = X_t.PCA(2)
 #Inverse trasform the data
 trasformed60 = my_inverse_trasform(trasformed60, X_t, pca60)
-trasformed602 =
+#trasformed602 =
 #Destandardizise matrix
 trasformed60 = trasformed60 * np.std(X, axis=0) + np.mean(X, axis=0)
-
+#aaaaaa
 #Plotting reduced images
 img60 = np.reshape(trasformed60[0], (227, 227, 3)).astype(int)
 plt.imshow(img60)
