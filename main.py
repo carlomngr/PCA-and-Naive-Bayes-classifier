@@ -55,6 +55,7 @@ trasformedlast6 = my_inverse_trasform(trasformedlast6, X_t, last6)
 trasformed60 = trasformed60 * np.std(X, axis=0) + np.mean(X, axis=0)
 trasformed6 = trasformed6 * np.std(X, axis=0) + np.mean(X, axis=0)
 trasformed2 = trasformed2 * np.std(X, axis=0) + np.mean(X, axis=0)
+
 trasformedlast6 = trasformedlast6 * np.std(X, axis=0) + np.mean(X, axis=0)
 
 #Plotting reduced images
@@ -84,27 +85,33 @@ plt.close()
 
 
 
-
-
 dog = len(glob.glob('dog/*.jpg'))
 guitar = len(glob.glob('guitar/*.jpg'))
 house = len(glob.glob('house/*.jpg'))
 person = len(glob.glob('person/*.jpg'))
 
 y = ['r', 'c', 'b', 'g']
-'''
-single = X_t[0]
 
-plt.title("Single image")
-plt.scatter(single[0], single[1], c='r')
+plt.title("First and second principal components")
+plt.scatter(trasformed60[0:dog, 0], trasformed60[0:dog, 1], c=y[0])
+plt.scatter(trasformed60[dog:dog+guitar, 0], trasformed60[dog:dog+guitar, 1], c=y[1])
+plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 0], trasformed60[dog+guitar:dog+guitar+house, 1], c=y[2])
+plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 0], trasformed60[dog+guitar+house:dog+guitar+house+person, 1], c=y[3])
 plt.show()
 plt.close()
 
-plt.title("Whole data-set")
-plt.scatter(X_t[0:dog, 0], X_t[0:dog, 1], c=y[0])
-plt.scatter(X_t[dog:dog+guitar, 0], X_t[dog:dog+guitar, 1], c=y[1])
-plt.scatter(X_t[dog+guitar:dog+guitar+house, 0], X_t[dog+guitar:dog+guitar+house, 1], c=y[2])
-plt.scatter(X_t[dog+guitar+house:dog+guitar+house+person, 0], X_t[dog+guitar+house:dog+guitar+house+person, 1], c=y[3])
+plt.title("Third and fourth principal components")
+plt.scatter(trasformed60[0:dog, 2], trasformed60[0:dog, 3], c=y[0])
+plt.scatter(trasformed60[dog:dog+guitar, 2], trasformed60[dog:dog+guitar, 3], c=y[1])
+plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 2], trasformed60[dog+guitar:dog+guitar+house, 3], c=y[2])
+plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 2], trasformed60[dog+guitar+house:dog+guitar+house+person, 3], c=y[3])
 plt.show()
 plt.close()
-print("ciao")'''
+
+plt.title("Tenth and eleventh principal components")
+plt.scatter(trasformed60[0:dog, 9], trasformed60[0:dog, 10], c=y[0])
+plt.scatter(trasformed60[dog:dog+guitar, 9], trasformed60[dog:dog+guitar, 10], c=y[1])
+plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 9], trasformed60[dog+guitar:dog+guitar+house, 10], c=y[2])
+plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 9], trasformed60[dog+guitar+house:dog+guitar+house+person, 10], c=y[3])
+plt.show()
+plt.close()
