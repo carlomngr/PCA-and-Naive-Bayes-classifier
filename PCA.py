@@ -11,13 +11,13 @@ def load_image (infilename):
     data = data.ravel()
     return data
 
-def my_trasform(data, X_t, components):
+def my_trasform(data, components):
 
-    return np.dot(data-X_t.mean_, components.T)
+    return np.dot(data, components.T)
 
-def my_inverse_trasform(data_reduced, X_t, components):
+def my_inverse_trasform(data_reduced, components):
 
-    return np.dot(data_reduced, components) + X_t.mean_
+    return np.dot(data_reduced, components)
 
 #Acquiring images in X matrix
 folders = ['dog' , 'guitar' , 'house' , 'person']
@@ -40,22 +40,22 @@ pca2 = pca6[0:2, :]
 last6 = X_t.components_[-6:, :]
 
 #Trasform the data
-trasformed2 = my_trasform(X_std, X_t, pca2)
-trasformed6 = my_trasform(X_std, X_t, pca6)
-trasformed60 = my_trasform(X_std, X_t, pca60)
-trasformedlast6 = my_trasform(X_std, X_t, last6)
+trasformed2 = my_trasform(X_std, pca2)
+trasformed6 = my_trasform(X_std, pca6)
+trasformed60 = my_trasform(X_std, pca60)
+trasformedlast6 = my_trasform(X_std, last6)
+a = trasformed60
 
 #Inverse trasform the data
-trasformed60 = my_inverse_trasform(trasformed60, X_t, pca60)
-trasformed6 = my_inverse_trasform(trasformed6, X_t, pca6)
-trasformed2 = my_inverse_trasform(trasformed2, X_t, pca2)
-trasformedlast6 = my_inverse_trasform(trasformedlast6, X_t, last6)
+trasformed60 = my_inverse_trasform(trasformed60, pca60)
+trasformed6 = my_inverse_trasform(trasformed6, pca6)
+trasformed2 = my_inverse_trasform(trasformed2, pca2)
+trasformedlast6 = my_inverse_trasform(trasformedlast6, last6)
 
 #Destandardizise matrix
 trasformed60 = trasformed60 * np.std(X, axis=0) + np.mean(X, axis=0)
 trasformed6 = trasformed6 * np.std(X, axis=0) + np.mean(X, axis=0)
 trasformed2 = trasformed2 * np.std(X, axis=0) + np.mean(X, axis=0)
-
 trasformedlast6 = trasformedlast6 * np.std(X, axis=0) + np.mean(X, axis=0)
 
 #Plotting reduced images
@@ -93,25 +93,25 @@ person = len(glob.glob('person/*.jpg'))
 y = ['r', 'c', 'b', 'g']
 
 plt.title("First and second principal components")
-plt.scatter(trasformed60[0:dog, 0], trasformed60[0:dog, 1], c=y[0])
-plt.scatter(trasformed60[dog:dog+guitar, 0], trasformed60[dog:dog+guitar, 1], c=y[1])
-plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 0], trasformed60[dog+guitar:dog+guitar+house, 1], c=y[2])
-plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 0], trasformed60[dog+guitar+house:dog+guitar+house+person, 1], c=y[3])
+plt.scatter(a[0:dog, 0], a[0:dog, 1], c=y[0])
+plt.scatter(a[dog:dog+guitar, 0], a[dog:dog+guitar, 1], c=y[1])
+plt.scatter(a[dog+guitar:dog+guitar+house, 0], a[dog+guitar:dog+guitar+house, 1], c=y[2])
+plt.scatter(a[dog+guitar+house:dog+guitar+house+person, 0], a[dog+guitar+house:dog+guitar+house+person, 1], c=y[3])
 plt.show()
 plt.close()
 
 plt.title("Third and fourth principal components")
-plt.scatter(trasformed60[0:dog, 2], trasformed60[0:dog, 3], c=y[0])
-plt.scatter(trasformed60[dog:dog+guitar, 2], trasformed60[dog:dog+guitar, 3], c=y[1])
-plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 2], trasformed60[dog+guitar:dog+guitar+house, 3], c=y[2])
-plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 2], trasformed60[dog+guitar+house:dog+guitar+house+person, 3], c=y[3])
+plt.scatter(a[0:dog, 2], a[0:dog, 3], c=y[0])
+plt.scatter(a[dog:dog+guitar, 2], a[dog:dog+guitar, 3], c=y[1])
+plt.scatter(a[dog+guitar:dog+guitar+house, 2], a[dog+guitar:dog+guitar+house, 3], c=y[2])
+plt.scatter(a[dog+guitar+house:dog+guitar+house+person, 2], a[dog+guitar+house:dog+guitar+house+person, 3], c=y[3])
 plt.show()
 plt.close()
 
 plt.title("Tenth and eleventh principal components")
-plt.scatter(trasformed60[0:dog, 9], trasformed60[0:dog, 10], c=y[0])
-plt.scatter(trasformed60[dog:dog+guitar, 9], trasformed60[dog:dog+guitar, 10], c=y[1])
-plt.scatter(trasformed60[dog+guitar:dog+guitar+house, 9], trasformed60[dog+guitar:dog+guitar+house, 10], c=y[2])
-plt.scatter(trasformed60[dog+guitar+house:dog+guitar+house+person, 9], trasformed60[dog+guitar+house:dog+guitar+house+person, 10], c=y[3])
+plt.scatter(a[0:dog, 9], a[0:dog, 10], c=y[0])
+plt.scatter(a[dog:dog+guitar, 9], a[dog:dog+guitar, 10], c=y[1])
+plt.scatter(a[dog+guitar:dog+guitar+house, 9], a[dog+guitar:dog+guitar+house, 10], c=y[2])
+plt.scatter(a[dog+guitar+house:dog+guitar+house+person, 9], a[dog+guitar+house:dog+guitar+house+person, 10], c=y[3])
 plt.show()
 plt.close()
